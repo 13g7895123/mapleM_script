@@ -13,6 +13,8 @@ class Action():
     def emulator_start_up(self):
         self.process_to_front('雷電多開器')
         img_location = pyautogui.locateOnScreen(image='MapleM/img/emulator/001_start_up.png')
+        print(img_location)
+        return
 
         if img_location:
             x, y = pyautogui.center(img_location)
