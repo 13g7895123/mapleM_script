@@ -1,11 +1,17 @@
 import win32gui, pydirectinput, pythoncom
 import pyautogui
 import time
+from pywinauto.application import Application
+from pywinauto import findwindows
 
 class Action():
     def __init__(self):
         super().__init__()
         self.loading = 0
+
+    # 啟動模擬器多開
+    def open_muilty_manager():
+        app = Application().start("your_application.exe")
 
     # 確認模擬器開啟
 
@@ -28,6 +34,13 @@ class Action():
         hwnd = win32gui.FindWindow(None, process)
         win32gui.SetForegroundWindow(hwnd)
 
+    def is_process_running(self, process_name):
+        # windows = findwindows.find_element(class_name='#32770', title_re = process_name)
+        windows = findwindows.find_element(title_re = process_name)
+
+        if windows and windows[0].is_visible():
+            return True
+        return False
 
     # 開啟楓M(模擬器桌面)
     def start_mapleM():
@@ -56,5 +69,8 @@ class Action():
     # 登入頁面
             
 test = Action()
-test.emulator_start_up()
+if test.is_process_running('LDMultiPlayer'):
+    print(1)
+else:
+    print(0)
 
