@@ -1,4 +1,6 @@
-import win32gui, pydirectinput, pythoncom
+import win32gui
+import pydirectinput
+import pythoncom
 import pyautogui
 import time
 from pywinauto.application import Application
@@ -47,16 +49,104 @@ class Action():
 
     # 開啟楓M(模擬器桌面)
     def start_mapleM(self):
-        img_location = pyautogui.locateOnScreen(image='img/emulator/001_icon.png')
-        print(img_location)
+        img_path = 'img/emulator/001_icon.png'
+        res = self.move_img_and_click(img_path)
 
-        if img_location:
-            x, y = pyautogui.center(img_location)
-            pyautogui.moveTo(x, y, duration=1)
-            pyautogui.click()
+        if res == 1:
             print('open mapleM now...')
         else:
             print('error in start_mapleM')
+
+    # 關閉活動圖片
+    def close_events(self):
+        img_path = 'img/game/001_upcoming_events.png'
+        res = self.move_img_and_click(img_path)
+
+        if res == 1:
+            print('close events now...')
+        else:
+            print('error in close events')
+
+    # 點封面圖
+    def click_logo(self):
+        img_path = 'img/game/version_logo.png'
+        res = self.move_img_and_click(img_path)
+
+        if res == 1:
+            print('click logo now...')
+        else:
+            print('error in click logo')
+
+    # 點封面圖
+    def choose_world(self):
+        img_path = 'img/game/choose_world.png'
+        res = self.move_img_and_click(img_path)
+
+        if res == 1:
+            print('choose world now...')
+        else:
+            print('error in choose world')
+
+    # 選角開始遊戲
+    def start_game(self):
+        img_path = 'img/game/start_game.png'
+        res = self.move_img_and_click(img_path)
+
+        if res == 1:
+            print('start game now...')
+        else:
+            print('error in start game')
+
+    # 自動戰鬥結果確認
+    def auto_fight_result(self):
+        img_path = 'img/game/auto_fight_result.png'
+        res = self.move_img_and_click(img_path)
+
+        if res == 1:
+            print('auto fight result now...')
+        else:
+            print('error in auto fight result')
+
+    # 自動戰鬥
+    def auto_fight(self):
+        img_path = 'img/game/auto_fight.png'
+        res = self.move_img_and_click(img_path)
+
+        if res == 1:
+            print('auto fight now...')
+        else:
+            print('error in auto fight')
+
+    # 自動戰鬥
+    def auto_fight_use(self):
+        img_path = 'img/game/auto_fight_use.png'
+        res = self.move_img_and_click(img_path)
+
+        if res == 1:
+            print('auto fight use now...')
+        else:
+            print('error in auto fight use')
+
+    # 自動戰鬥
+    def auto_fight_start(self):
+        img_path = 'img/game/auto_fight_start.png'
+        res = self.move_img_and_click(img_path)
+
+        if res == 1:
+            print('auto fight start now...')
+        else:
+            print('error in auto fight start')
+
+    # 移至指定圖片並點擊
+    def move_img_and_click(self, img_path, duration=1):
+        img_location = pyautogui.locateOnScreen(image=img_path)
+        if img_location:
+            x, y = pyautogui.center(img_location)
+            pyautogui.moveTo(x, y, duration=duration)
+            pyautogui.click()
+            return 1
+        else:
+            return 0
 
     # 等待
     def standby(self, second = 5):
