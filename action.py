@@ -3,6 +3,7 @@ import pydirectinput
 import pythoncom
 import pyautogui
 import time
+import pygetwindow
 from pywinauto.application import Application
 from pywinauto import findwindows
 from config import *
@@ -155,7 +156,7 @@ class Action():
         print(f'waiting finished')
 
     # 滑鼠當前座標
-    def mouse_posotion():
+    def mouse_posotion(self):
         while True:
             x, y = pyautogui.position()
             print(x, y)
@@ -163,4 +164,29 @@ class Action():
 
     # 登入頁面
 
+    def loop_window_show(self, second, window):
+        is_window_show = False
+        while is_window_show == False:
+            is_window_show = self.is_window_on_screentop(window)
+            if is_window_show == False:
+                self.standby(second)
+
+    def is_window_on_screentop(self, window):
+        try:
+            # 获取指定标题的窗口
+            window = pygetwindow.getWindowsWithTitle(window)[0]
+
+            # 获取屏幕的宽度和高度
+            screen_width, screen_height = pyautogui.size()
+
+            # 检查窗口的位置是否在屏幕范围内
+            if 0 <= window.left <= screen_width and 0 <= window.top <= screen_height:
+                print(f"找到标题为 '{window}' 的窗口。")
+                return True
+            else:
+                print(f"找不到标题为 '{window}' 的窗口。")
+                return False
+        except IndexError:
+            print(f"找不到标题为 '{window}' 的窗口。")
+            return False
 
